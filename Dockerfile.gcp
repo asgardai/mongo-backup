@@ -1,0 +1,16 @@
+FROM google/cloud-sdk:alpine
+
+RUN apk --no-cache update && \
+    apk --no-cache add bash python3 python3-dev
+
+RUN pip3 install -U pip && \
+    pip3 install schedule begin
+
+COPY ./backup.py /backup.py
+
+ENV BACKUP_INTERVAL 1
+ENV BACKUP_TIME 2:00
+ENV DATE_FORMAT %Y%m%d-%H%M%S
+ENV FILE_PREFIX backup-
+
+ENTRYPOINT ["python", "-u", "backup.py"]
