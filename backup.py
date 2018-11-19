@@ -65,7 +65,7 @@ def backup_job():
             cmd_ = (
                 "mongodump -h {host} --port {port} -u {user} -p {pwd} --db {db} "
                 + "--gzip --archive --authenticationDatabase admin | "
-                + "gsutil -m cp - {path}"
+                + "gsutil cp - {path}"
             )
         else:
             raise ValueError("Storage needs to be in ['s3', 'gs']")

@@ -1,10 +1,12 @@
 FROM google/cloud-sdk:alpine
 
 RUN apk --no-cache update && \
-    apk --no-cache add bash python3 python3-dev
+    apk --no-cache add bash python3 python3-dev && \
+    apk add --upgrade openssl-dev --update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/main/ --allow-untrusted && \
+    apk add mongodb-tools=4.0.3-r1 --update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community/ --allow-untrusted
 
 RUN pip3 install -U pip && \
-    pip3 install schedule begin
+    pip3 install schedule begins
 
 COPY ./backup.py /backup.py
 
@@ -13,4 +15,4 @@ ENV BACKUP_TIME 2:00
 ENV DATE_FORMAT %Y%m%d-%H%M%S
 ENV FILE_PREFIX backup-
 
-ENTRYPOINT ["python", "-u", "backup.py"]
+ENTRYPOINT ["python3", "-u", "backup.py"]

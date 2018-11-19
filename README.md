@@ -1,4 +1,4 @@
-# MongoDB S3 Backup Docker image
+# MongoDB Backup Docker image
 
 Based on https://github.com/agmangas/mongo-backup-s3.
 With some modification from https://gist.github.com/caraboides/7679bb73f4f13e36fc2b9dbded3c24c0
@@ -14,20 +14,30 @@ Based on the [dbader/schedule](https://github.com/dbader/schedule) Python schedu
 
 The following table describes the available configuration environment variables.
 
-Name | Description | Default
---- | --- | ---
-`MONGO_HOST` | MongoDB instance hostname | *Required*
-`MONGO_PORT` | MongoDB database name | *Required*
-`MONGO_DB` | MongoDB database name | *Required*
-`MONGO_USERNAME` | MongoDB database name | *Required*
-`MONGO_PASSWORD` | MongoDB database name | *Required*
-`S3_FOLDER` | Amazon S3 bucket name | *Required*
-`AWS_ACCESS_KEY_ID` | Amazon AWS access key | *Required*
-`AWS_SECRET_ACCESS_KEY` | Amazon AWS secret | *Required*
-`BACKUP_INTERVAL` | Interval between each backup (days) | `1`
-`BACKUP_TIME` | Hour of the day at which the backup will be executed | `2:00`
-`DATE_FORMAT` | Date format string used as the suffix of the backup filename | `%Y%m%d-%H%M%S`
-`FILE_PREFIX` | Prefix of the backup filename | `backup-`
+| Name                    | Description                                                  | Default         |
+| ----------------------- | ------------------------------------------------------------ | --------------- |
+| `MONGO_HOST`            | MongoDB instance hostname                                    | *Required*      |
+| `MONGO_PORT`            | MongoDB database name                                        | *Required*      |
+| `MONGO_DB`              | Comma separated list of MongoDB database name                | *Required*      |
+| `MONGO_USERNAME`        | MongoDB database name                                        | *Required*      |
+| `MONGO_PASSWORD`        | MongoDB database name                                        | *Required*      |
+| `MONGO_BACKUP_STORAGE`  | Storage to use: 's3' for AWS S3 or 'gs' for Google Storage   | *Required*      |
+| `BUCKET`                | S3 or GS Bucket name                                         | *Required*      |
+| `AWS_ACCESS_KEY_ID`     | Amazon AWS access key                                        | *Required*      |
+| `AWS_SECRET_ACCESS_KEY` | Amazon AWS secret                                            | *Required*      |
+| `BACKUP_INTERVAL`       | Interval between each backup (days)                          | `1`             |
+| `BACKUP_TIME`           | Hour of the day at which the backup will be executed         | `2:00`          |
+| `DATE_FORMAT`           | Date format string used as the suffix of the backup filename | `%Y%m%d-%H%M%S` |
+| `FILE_PREFIX`           | Prefix of the backup filename                                | `backup-`       |
+
+
+## Usage
+
+* Build the image using the Dockerfile corresponding to your storage (s3 or gcp)
+* Use our image:
+	* asgard/mongo-backup:gcp-0.0.1
+	* asgard/mongo-backup:s3-0.0.1
+
 
 ## Example
 
